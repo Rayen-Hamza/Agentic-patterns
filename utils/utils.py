@@ -1,3 +1,6 @@
+import re
+import json
+
 def chat_completion(client, chat_history, model="llama-3.3-70b-versatile")-> str:
     """
     Function to get chat completion from the Groq client.
@@ -53,6 +56,24 @@ def build_chat_history(history :list , prompt : str, role :str ):
     history.append(build_prompt_structure(prompt, role))
 
 
+def extract_tagged_content(text: str, tag: str) -> list[str]:
+
+    """
+    Extracts content enclosed within specified XML-like tags from the input text.
+
+    Args:
+        text (str): The input text containing tagged content.
+        tag (str): The tag name to search for (without angle brackets).
+
+    Returns:
+        list[str]: A list of strings containing the content found within the specified tags.
+    """
+    pattern = rf'<{tag}>(.*?)</{tag}>'
+    matches = re.findall(pattern, text, re.DOTALL)
+    return [match.strip() for match in matches]
+
+
+
 
 
 
@@ -71,7 +92,7 @@ class ChatHistory(list):
 
 
     def append(self, msg):
-        if len(self) >= self.total_length:
+        if len(self) > self.total_length:
             self.pop(0)
 
         super().append(msg)
