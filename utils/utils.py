@@ -1,5 +1,7 @@
 import re
 import json
+import time 
+from colorama import Fore   
 
 def chat_completion(client, chat_history, model="llama-3.3-70b-versatile")-> str:
     """
@@ -71,6 +73,15 @@ def extract_tagged_content(text: str, tag: str) -> list[str]:
     pattern = rf'<{tag}>(.*?)</{tag}>'
     matches = re.findall(pattern, text, re.DOTALL)
     return [match.strip() for match in matches]
+
+
+
+def pretty_print(message : str ) -> None :
+    print(Fore.YELLOW + f"\n {"="*10} ")
+    print(Fore.MAGENTA + message + Fore.RESET)
+    print(Fore.YELLOW+ f"\n {"="*10} ")
+    time.sleep(0.5)
+
 
 
 
