@@ -4,8 +4,9 @@ from tool_pattern.tool_agent import ToolAgent,TOOL_AGENT_PROMPT
 from groq import Groq 
 from utils.utils import build_prompt_structure,FixedChatHistory,chat_completion,build_chat_history
 
-
+from ReAct_pattern.react_agent import ReactAgent
 load_dotenv()
+
 
 @tool
 def get_weather_data(location: str, date: str) -> dict:
@@ -39,8 +40,9 @@ def get_population_data(city: str) -> dict:
     }
 
 
-tool_agent = ToolAgent(tools=[get_weather_data, get_population_data])
-response = tool_agent.run("hello")
+tool_agent = ReactAgent(tools=[get_weather_data, get_population_data])
+tool_agent.run("what is the weather in New York on 2023-10-10 and what is the population of Tokyo?")
+
 
 
 

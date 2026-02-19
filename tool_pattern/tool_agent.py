@@ -69,7 +69,7 @@ class ToolAgent:
     
 
 
-    def run(self, query: str) -> str:
+    def run(self, query: str) -> None:
         
         prompt = self.add_tool_signatures_to_prompt(TOOL_AGENT_PROMPT)
         tool_history = FixedChatHistory()
@@ -94,7 +94,7 @@ class ToolAgent:
             print(Fore.MAGENTA + "Tool call results:" + Fore.RESET, results)
             build_chat_history(agent_history,f'observations: {results}',"user")
 
-        return Fore.CYAN + "Final agent response:" + Fore.RESET, chat_completion(self.client,agent_history,self.model)
+        print(Fore.CYAN + "Final agent response:" + Fore.RESET, chat_completion(self.client,agent_history,self.model))
     
 
 
