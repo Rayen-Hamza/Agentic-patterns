@@ -65,23 +65,23 @@ class Agent:
 
 
     def __lshift__(self, other):
-        """Left shift operator: self << other makes other dependent on self."""
-        self.add_dependent(other)
+        """Left shift operator: self << other makes self dependent on other."""
+        self.add_dependency(other)
         return other
 
     def __rshift__(self, other):
-        """Right shift operator: self >> other makes self dependent on other."""
-        self.add_dependency(other)
+        """Right shift operator: self >> other makes other dependent on self (self runs first)."""
+        self.add_dependent(other)
         return other
     
     def __rrshift__(self, other):
-        """Reflected right shift: other >> self when other doesn't support >>."""
-        self.add_dependency(other)
+        """Reflected right shift: other >> self makes self dependent on other."""
+        self.add_dependent(other)
         return self
     
     def __rlshift__(self, other):
-        """Reflected left shift: other << self when other doesn't support <<."""
-        self.add_dependent(other)
+        """Reflected left shift: other << self makes other dependent on self."""
+        self.add_dependency(other)
         return self
 
 

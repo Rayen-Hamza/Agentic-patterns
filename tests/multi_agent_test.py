@@ -323,22 +323,23 @@ def test_operator_overloading():
         )
         
         # Test >> operator (right shift)
-        agent1 >> agent2
+        agent1 >> agent2  # agent1 runs first, agent2 depends on agent1
         
         # Test << operator (left shift)
-        agent2 << agent3
+        agent2 << agent3  # agent3 runs first, agent2 depends on agent3
         
         print("\nDependency setup:")
         print(f"  Agent1 dependencies: {[a.name for a in agent1.dependencies]}")
         print(f"  Agent2 dependencies: {[a.name for a in agent2.dependencies]}")
         print(f"  Agent3 dependencies: {[a.name for a in agent3.dependencies]}")
-        print(f"  Agent2 dependents: {[a.name for a in agent2.dependents]}")
+        print(f"  Agent1 dependents: {[a.name for a in agent1.dependents]}")
+        print(f"  Agent3 dependents: {[a.name for a in agent3.dependents]}")
         
-        # Verify
+        # Verify correct relationships
         assert agent2 in agent1.dependents, "Agent2 should be dependent on Agent1"
         assert agent1 in agent2.dependencies, "Agent1 should be a dependency of Agent2"
-        assert agent3 in agent2.dependents, "Agent3 should be dependent on Agent2"
-        assert agent2 in agent3.dependencies, "Agent2 should be a dependency of Agent3"
+        assert agent2 in agent3.dependents, "Agent2 should be dependent on Agent3"
+        assert agent3 in agent2.dependencies, "Agent3 should be a dependency of Agent2"
         
         print("\n✓ All operator tests passed!")
 

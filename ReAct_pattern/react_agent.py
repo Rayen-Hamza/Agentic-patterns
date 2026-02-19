@@ -113,7 +113,7 @@ class ReactAgent():
 
 
 
-    def run(self,query : str,max_iterations : int = 5) -> str:
+    def run(self,query : str,max_iterations : int = 10) -> str:
         
         if self.tools:
             self.system_prompt += self.add_tool_signatures_to_prompt(REASON_AGENT_PROMPT)
@@ -149,8 +149,19 @@ class ReactAgent():
                     print(Fore.MAGENTA + f"Iteration {iteration+1} - Tool call results:" + Fore.RESET, results)
                     build_chat_history(chat_history,completion,"assistant")
                     build_chat_history(chat_history,f'observations: {results}',"user")
-
-        print(Fore.CYAN + "Final agent response:" + Fore.RESET, chat_completion(self.client,chat_history,self.model))
+        
+        # Get final response after all iterations or if max_iterations reached
+        # Add instruction to provide final response without tool calls
+        build_chat_history(chat_history, "Please provide your final response now. Do not make any more tool calls. Provide a clear, direct answer to the original query.", "user")
+        final_response = chat_completion(self.client, chat_history, self.model)
+        
+        # Extract response if it has tags, otherwise return as is
+        response_content = extract_tagged_content(final_response, "response")
+        if response_content:
+            final_response = response_content[0]
+            
+        print(Fore.CYAN + "Final agent response:" + Fore.RESET, final_response)
+        return final_response
             
     
 
