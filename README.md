@@ -1,4 +1,5 @@
-# Agentic Patterns
+<h1 align="center" >Agentic patterns </h1>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
@@ -11,6 +12,9 @@
   <img src="https://img.shields.io/badge/Pattern-ReAct-FF6D00?style=flat-square" alt="ReAct"/>
   <img src="https://img.shields.io/badge/Pattern-Reflection-7C4DFF?style=flat-square" alt="Reflection"/>
   <img src="https://img.shields.io/badge/Pattern-Tool%20Calling-1976D2?style=flat-square" alt="Tool"/>
+</p>
+<p align="center">
+    <img alt="logo" src="./docs/groq.png" width=300 />
 </p>
 
 A collection of AI agent design patterns implemented from scratch using Python and Groq API. Learn how to build reasoning agents, multi-agent systems, and tool-augmented LLMs.
